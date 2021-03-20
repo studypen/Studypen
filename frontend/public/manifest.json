@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Studenthub",
+  "name": "Student hub where you can mange you classes",
   "icons": [
     {
       "src": "favicon.ico",
