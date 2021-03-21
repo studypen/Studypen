@@ -6,8 +6,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export const Login: React.FC = () => {
   const [username, setUsername] = useState("hdsj@gmail.com")
-  const [password, setPassword] = useState("")
-
+  const [password, setPassword] = useState("kdk")
 
   const login: FormEventHandler = async (e: FormEvent) => {
     e.preventDefault()

@@ -9,4 +9,4 @@ def index(request):
 
 # @ensure_csrf_cookie
 class HomePageView(TemplateView):
-    template_name = 'home.html'
+    template_name = 'index.html'
