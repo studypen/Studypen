@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load render_bundle from webpack_loader %}
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/static/favicon.ico" />
@@ -12,9 +13,11 @@
     <link rel="apple-touch-icon" href="/static/logo192.png" />
     <link rel="manifest" href="/static/manifest.json" />
     <title>Student Hut</title>
+    {% comment %} {% render_bundle 'main' 'css' %} {% endcomment %}
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    {% render_bundle 'main'  %}
   </body>
-</html>
+</head>

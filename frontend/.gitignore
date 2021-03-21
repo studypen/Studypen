@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+#webpack-static
+webpack-stats.json
 # testing
 /coverage
 

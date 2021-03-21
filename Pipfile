@@ -7,8 +7,14 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+django-rest-auth = "*"
+djangorestframework-jwt = "*"
+django-allauth = "*"
+djangorestframework-simplejwt = "*"
+django-webpack-loader = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
