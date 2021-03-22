@@ -1,5 +1,5 @@
 # Studenthut
-Manager your classes 
+Manager your classes
 
 ----
 ## Using
@@ -9,7 +9,7 @@ Manager your classes
 
 ----
 # TODO:
-  - [ ] : User auth
+  - [x] : User auth
   - [ ] : Make basic UI
   - [ ] : Class routine manager
   - [ ] : Class routine notifier
@@ -20,4 +20,3 @@ Manager your classes
   - [ ] : Video casting
   - [ ] : Rectify UI
   - [ ] : Add animation
- 

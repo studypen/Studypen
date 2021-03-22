@@ -3,16 +3,19 @@
 
 
 interface User {
-    name: string,
-    isLogin: boolean
+    first_name: string,
+    last_name: string,
+    username: string,
+    email: string
 }
 
 type UserState = {
-    user: User
+    user?: User
 }
 
 type AuthAction = {
-    type: string
+    type: string,
+    payload?: User
 }
 
 type DispatchType = (args: AuthAction) => UserState

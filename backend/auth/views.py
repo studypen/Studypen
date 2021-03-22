@@ -56,7 +56,8 @@ class UpdateView(generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
 
-        serializer = self.serializer_class(instance=request.user, data=request.data)
+        serializer = self.serializer_class(
+            instance=request.user, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'status': 'success'})
@@ -71,6 +72,7 @@ def uesr_view(request):
         "username": request.user.username,
         "email": request.user.email,
     })
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -94,7 +96,12 @@ def login_view(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return JsonResponse({"detail": "Success"})
+        return Response({
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "username": user.username,
+            "email": user.email,
+        })
     return JsonResponse(
         {"detail": "Invalid credentials"},
         status=400,

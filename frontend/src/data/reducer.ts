@@ -1,17 +1,13 @@
 import * as actionTypes from './actionTypes'
+import { initUser } from './rest'
 
-
-const user: User = {
-  name: 'unknown',
-  isLogin: false
-}
-
-const initialState: UserState = { user }
-export const reducer = (state = initialState, action: AuthAction): UserState => {
+export const reducer = (state = {}, action: AuthAction): UserState => {
   switch (action.type) {
-    case actionTypes.LOGIN_START:
-      
+    case actionTypes.LOGIN_SUCCESS:
+      return {...state, user: action.payload}
 
+    case actionTypes.LOG_OUT:
+      return {...state, user: undefined}
       // TODO:
       return state;
   }

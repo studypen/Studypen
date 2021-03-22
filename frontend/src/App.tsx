@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.scss';
-import { Login } from './component/Login';
-import { Registration } from './component/Registration';
 import { hot } from 'react-hot-loader/root'
 import { setConfig } from 'react-hot-loader';
 import { Provider } from 'react-redux'
-import { store } from './data/store'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
+import { store } from './data/store'
+import { Nav } from './component/Nav';
+import { Home } from './pages/Home';
 setConfig({
   reloadHooks: false,
 });
@@ -15,9 +16,12 @@ const App: React.FC = () =>
 (
   <Provider store={store}>
     <div className="App">
-      <Login />
-
-      <Registration />
+      <Router>
+        <Nav />
+        <Switch>
+          <Route path="/"> <Home/> </Route>
+        </Switch>
+      </Router>
     </div>
   </Provider>
 );
