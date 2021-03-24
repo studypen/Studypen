@@ -1,6 +1,6 @@
 form{
   text-align: left;
-  background-color: #aaa;
+  background-color: #efefef;
   margin: 5px;
   padding: 5px;
   h2{
@@ -14,6 +14,11 @@ form{
   p{
     display: inline;
     margin-right: 20px;
+
+    &.error-msg{
+      font-size: 0.76rem;
+      color: #ef3333;
+    }
   }
 }
 input{

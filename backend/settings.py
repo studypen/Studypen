@@ -25,7 +25,9 @@ SECRET_KEY = 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.43.165'
+]
 
 
 # Application definition
@@ -156,7 +158,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend/build/static'),
 )
 
-# Auth
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+# Auth no using right now
+# ACCOUNT_AUTHENTICATION_METHOD = "email"
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
