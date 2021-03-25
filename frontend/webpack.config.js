@@ -6,9 +6,12 @@ const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack')
 module.exports = {
   devtool: 'inline-source-map',
-  entry: ['babel-polyfill', 'react-hot-loader/patch', "./src/index.tsx"],
+  entry: ['react-hot-loader/patch', "./src/index.tsx"],
   target: "web",
   mode: "development",
+  optimization: {
+    splitChunks: { chunks: "all" }
+  },
   output: {
     publicPath: 'http://localhost:9000/static/',
     // publicPath: 'static/',

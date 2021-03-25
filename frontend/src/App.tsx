@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { store } from './data/store'
 import { Nav } from './component/Nav';
 import { Home } from './pages/Home';
+
+//TODO: yarn remove react-script
+//TODO: prod build webpack.config.js
 setConfig({
   reloadHooks: false,
 });

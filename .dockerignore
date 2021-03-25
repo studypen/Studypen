@@ -1,0 +1,10 @@
+.vscode
+
+frontend/node_modules
+node_modules
+
+build
+db.sqlite3
+yarn*.log
+yarn.lock
+.git

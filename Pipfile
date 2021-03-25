@@ -10,7 +10,6 @@ django-cors-headers = "*"
 django-rest-auth = "*"
 djangorestframework-jwt = "*"
 django-allauth = "*"
-djangorestframework-simplejwt = "*"
 django-webpack-loader = "*"
 
 [dev-packages]
