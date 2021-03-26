@@ -3,14 +3,12 @@ import './App.scss';
 import { hot } from 'react-hot-loader/root'
 import { setConfig } from 'react-hot-loader';
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { store } from './data/store'
 import { Nav } from './component/Nav';
 import { Home } from './pages/Home';
 
-//TODO: yarn remove react-script
-//TODO: prod build webpack.config.js
 setConfig({
   reloadHooks: false,
 });
@@ -28,6 +26,5 @@ const App: React.FC = () =>
     </div>
   </Provider>
 );
-
 
 export default hot(App);

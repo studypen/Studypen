@@ -146,6 +146,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     # <- this is webpack's output dir
     os.path.join(BASE_DIR, 'frontend/public'),
+    os.path.join(BASE_DIR, 'frontend/build'),
 )
 
 # Auth no using right now

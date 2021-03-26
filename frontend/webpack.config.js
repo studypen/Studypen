@@ -1,64 +1,21 @@
-/* eslint-disable*/
 const path = require("path");
 const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack')
-module.exports = {
-  devtool: 'inline-source-map',
-  entry: ['react-hot-loader/patch', "./src/index.tsx"],
-  target: "web",
-  mode: "development",
-  optimization: {
-    splitChunks: { chunks: "all" }
-  },
-  output: {
-    publicPath: 'http://localhost:9000/static/',
-    // publicPath: 'static/',
-    path: path.resolve(__dirname, "build", "static"),
-    filename: "js/[name].js", //"js/[name].[chunkhash:8].js",
-    chunkFilename: "js/[name].chunk.js",//"js/[name].[chunkhash:8].chunk.js",
-  },
-  resolve: {
-    alias: {
-      "react-dom": "@hot-loader/react-dom",
-    },
-  },
-  devServer: {
-    historyApiFallback: true,
-    // for assets not handled by webpack
-    // port should be different from the one you use to run Django
-    port: 9000,
+const { merge } = require('webpack-merge');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-    hot:true,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-
-  },
+const common = {
+  target: 'web',
+  optimization: { splitChunks: { chunks: 'all' } },
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-        options: {
-          cacheDirectory: true,
-        }
-      },
-      {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader",
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          "css-loader",
-          "sass-loader",
-        ],
       },
       {
         test: /\.svg$/,
@@ -68,7 +25,8 @@ module.exports = {
             options: {
               limit: 10000,
             },
-          },]
+          },
+        ]
       },
     ],
   },
@@ -78,4 +36,106 @@ module.exports = {
       filename: 'webpack-stats.json'
     }),
   ],
-};
+}
+const production = merge(common, {
+  entry: './src/index.tsx',
+  mode: 'production',
+  output: {
+    publicPath: '',
+    path: path.resolve(__dirname, 'build'),
+    filename: "js/[name].[chunkhash:8].js",
+    chunkFilename: 'js/[name].chunk.js'
+  },
+  plugins: [new MiniCssExtractPlugin({
+    filename: 'css/[name].[chunkhash:8].css'
+  })],
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            ["@babel/preset-env", { "modules": false }],
+            "@babel/preset-react",
+            "@babel/preset-typescript"
+          ],
+          plugins: [
+            "@babel/plugin-syntax-dynamic-import",
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-transform-runtime"
+          ],
+          cacheDirectory: true,
+        }
+      },{
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+        ],
+      }],
+  }
+})
+const development = merge(common, {
+  devtool: 'inline-source-map',
+  entry: ['react-hot-loader/patch', "./src/index.tsx"],
+
+  mode: "development",
+
+  output: {
+    publicPath: 'http://localhost:9000/static/',
+    // publicPath: 'static/',
+    path: path.resolve(__dirname, "build", "static"),
+    filename: "js/[name].js",
+    chunkFilename: "js/[name].chunk.js",
+  },
+  resolve: {
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
+  },
+  devServer: {
+    historyApiFallback: true,
+    port: 9000,
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            ["@babel/preset-env", { "modules": false }],
+            "@babel/preset-react",
+            "@babel/preset-typescript"
+          ],
+          plugins: [
+            "@babel/plugin-syntax-dynamic-import",
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-transform-runtime",
+            "react-hot-loader/babel"
+          ],
+          cacheDirectory: true,
+        }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          "css-loader",
+          "sass-loader",
+        ],
+      }
+    ],
+  },
+})
+
+
+module.exports = (env, argv) => argv.mode == 'production' ? production : development;
