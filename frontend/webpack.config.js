@@ -1,6 +1,5 @@
 /* eslint-disable*/
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack')
 module.exports = {
