@@ -13,7 +13,7 @@ RUN npm install
 WORKDIR /Studenthut/
 COPY . .
 
-WORKDIR /Studenthub/frontend/
+WORKDIR /Studenthut/frontend/
 COPY frontend/ .
 RUN npm run build
 

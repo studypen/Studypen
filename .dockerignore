@@ -1,7 +1,6 @@
 .vscode
 
-frontend/node_modules
-node_modules
+*/node_modules/*
 
 build
 db.sqlite3
