@@ -24,6 +24,7 @@ class SheduleTime(models.Model):
   day_of_week = models.IntegerField(choices = DayOfWeek.choices)
   start_time = models.TimeField(auto_now=False, auto_now_add=False)
   end_time = models.TimeField(auto_now=False, auto_now_add=False)
+  classes = models.ForeignKey(Classes, on_delete=models.CASCADE)
 
 
 class ResheduleTime(models.Model):

@@ -1,3 +1,13 @@
 from django.contrib import admin
+from . import models
+@admin.register(models.Classes)
+class ClassAdmin(admin.ModelAdmin):
+  pass
 
-# Register your models here.
+@admin.register(models.ResheduleTime)
+class ResheduleTimeAdmin(admin.ModelAdmin):
+  pass
+
+@admin.register(models.SheduleTime)
+class SheduleTimeAdmin(admin.ModelAdmin):
+  pass

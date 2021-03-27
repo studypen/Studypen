@@ -11,6 +11,7 @@ django-rest-auth = "*"
 djangorestframework-jwt = "*"
 django-allauth = "*"
 django-webpack-loader = "*"
+psycopg2 = "*"
 
 [dev-packages]
 autopep8 = "*"
