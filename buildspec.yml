@@ -1,0 +1,17 @@
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - echo pre_build frontend
+      - cd $CODEBUILD_SRC_DIR/frontend
+      - npm install
+  build:
+    commands:
+      - echo Building the frontend code...
+      - cd $CODEBUILD_SRC_DIR/frontend
+      - npm run build
+    finally:
+      - rm -rf node_modules
+

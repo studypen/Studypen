@@ -16,6 +16,7 @@ COPY . .
 WORKDIR /Studenthut/frontend/
 COPY frontend/ .
 RUN npm run build
+RUN rm -rf node_modules
 
 EXPOSE 8000
 
