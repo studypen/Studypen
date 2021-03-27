@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from . import views
 # from rest_framework_simplejwt.views import TokenRefreshView
 
-from backend.auth.views import RegisterView
+from backend.user.views import RegisterView
 
 urlpatterns = [
     path('login/', views.login_view),

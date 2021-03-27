@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     path('admin/', admin.site.urls),
-    path('account/', include('backend.auth.urls')),
+    path('account/', include('backend.user.urls')),
     re_path('^(?!backend)', views.index)
 ]
