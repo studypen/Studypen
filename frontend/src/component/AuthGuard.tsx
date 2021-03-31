@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from "react-router-dom";
+import React, { Component } from 'react'
+import { Route, Redirect } from 'react-router-dom'
 /*
 const GuardedRoute = ({componen: React., ...rest}) => {
   const auth = true

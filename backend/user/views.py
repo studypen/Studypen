@@ -1,22 +1,12 @@
 import json
 
-from backend.user.serializers import (
-                                      UserSerializer, UserUpdateSerializer)
+from backend.user.serializers import UserSerializer, UserUpdateSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
-from rest_framework import generics, mixins, status
-from rest_framework.authentication import (BasicAuthentication,
-                                           SessionAuthentication)
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.decorators import (api_view, authentication_classes,
-                                       permission_classes, schema)
-from rest_framework.permissions import (AllowAny, BasePermission,
-                                        IsAuthenticated)
+from rest_framework import generics, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .utils import IsNotAuthenticated
@@ -43,7 +33,9 @@ class RegisterView(generics.CreateAPIView):
         if user is not None:
             login(request, user)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data,
+                        status=status.HTTP_201_CREATED,
+                        headers=headers)
 
 
 class UpdateView(generics.UpdateAPIView):

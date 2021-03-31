@@ -1,3 +1,4 @@
+/* disable-eslint */
 const path = require("path");
 const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack')
@@ -85,7 +86,7 @@ const development = merge(common, {
   mode: "development",
 
   output: {
-    publicPath: 'http://localhost:9000/static/',
+    publicPath: 'http://192.168.43.165:9000/static/',
     // publicPath: 'static/',
     path: path.resolve(__dirname, "build", "static"),
     filename: "js/[name].js",
@@ -97,6 +98,7 @@ const development = merge(common, {
     },
   },
   devServer: {
+    host: '0.0.0.0',
     historyApiFallback: true,
     port: 9000,
     hot: true,

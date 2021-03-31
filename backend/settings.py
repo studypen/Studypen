@@ -14,9 +14,9 @@ SECRET_KEY = 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost', # localhost
-    '0.0.0.0', # any
-    '192.168.43.165' # my local network
+    'localhost',  # localhost
+    '127.0.0.1',
+    '192.168.43.165'  # my local network
 ]
 
 
@@ -65,7 +65,7 @@ REST_FRAMEWORK = {
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': '/', # must end with slash
+        'BUNDLE_DIR_NAME': '/',  # must end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
@@ -79,7 +79,8 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build'), os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build'),
+                 os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,10 +105,10 @@ DATABASES = {
         'NAME': 'studenthut',
         'PASSWORD': 'iwillnotshare',
 
-        'USER': 'studenthut', # db name
+        'USER': 'studenthut',  # db name
 
-        'HOST' : 'localhost', # host
-        'PORT': 5432, # port
+        'HOST': 'localhost',  # host
+        'PORT': 5432,  # port
     }
 }
 

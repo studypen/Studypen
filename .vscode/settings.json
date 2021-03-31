@@ -1,0 +1,5 @@
+{
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--ignore=E24,W504", "--verbose", "--exclude", ".git,__pycache__"],
+  "python.linting.enabled": true
+}

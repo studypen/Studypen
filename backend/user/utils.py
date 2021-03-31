@@ -1,5 +1,6 @@
 from rest_framework.permissions import BasePermission
 
+
 class IsNotAuthenticated(BasePermission):
     """
     Allows access only to non authenticated users.
