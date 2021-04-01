@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     # create class
     path('create/', views.create_class),
+    path('list/', views.class_list),
     # path('create/', views.create_class),
 
     # create time table

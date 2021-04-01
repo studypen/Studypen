@@ -9,7 +9,11 @@ export const reducer = (state = {}, action: AuthAction): UserState => {
     case actionTypes.LOG_OUT:
       return {...state, user: undefined}
       // TODO:
-      return state;
+    default:
+      return state
   }
-  return state
+}
+
+export const classReducer = (state= {}, action: ClassAction): ClassState => {
+  //
 }

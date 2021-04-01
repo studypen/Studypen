@@ -1,5 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+import random
+import string
+
+
+def uuid64bit():
+    # check if id alredy exits
+    return ''.join(random.choices(
+        string.ascii_letters + string.digits + '-_', k=8))
 
 
 class Classes(models.Model):
@@ -7,10 +15,12 @@ class Classes(models.Model):
     code = models.CharField(max_length=10)
     teacher = models.ForeignKey(
         User, related_name='classes_teacher', on_delete=models.CASCADE)
-    students = models.ManyToManyField(User, related_name='classes_students')
+    students = models.ManyToManyField(User, related_name='class_students')
+    id = models.CharField(max_length=8,
+                            unique=True, primary_key=True, default=uuid64bit)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} ({self.code})'
 
 
 class SheduleTime(models.Model):

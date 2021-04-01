@@ -8,6 +8,6 @@ def index(request):
   return render(request, 'index.html')
 
 
-@ensure_csrf_cookie
+# @ensure_csrf_cookie
 class HomePageView(TemplateView):
     template_name = 'index.html'

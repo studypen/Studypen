@@ -27,3 +27,5 @@ rules:
   semi:
     - error
     - never
+  max-len: [2, 80, 4]
+  max-depth: [2, 2]
