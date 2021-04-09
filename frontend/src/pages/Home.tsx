@@ -1,8 +1,7 @@
 import React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Dashboard as Dashboard } from '../component/Dashboard'
-import { Login } from '../component/Login'
-import { Registration } from '../component/Registration'
+import { Welcome } from '../component/Welcome'
 
 
 export const Home: React.FC = () => {
@@ -11,7 +10,7 @@ export const Home: React.FC = () => {
     <section style={{marginLeft: 20}} className="home">
       {
         user === undefined
-        ? <div> <Login/> <Registration/> </div>
+        ? <Welcome/>
         : <Dashboard/>
       }
     </section>
