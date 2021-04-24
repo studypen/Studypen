@@ -14,10 +14,11 @@ SECRET_KEY = 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',  # localhost
-    '127.0.0.1',
-    '192.168.43.165'  # my local network
+    'www.studypen.in',
 ]
+
+if DEBUG:  # debug only
+    ALLOWED_HOSTS += ['*']
 
 
 # Application definition
