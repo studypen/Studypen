@@ -1,3 +1,67 @@
+@import '../variable.scss';
+.dashboard{
+  display: grid;
+  grid-template-areas: "contents content options";
+  grid-template-columns: 200px 1fr 220px;
+
+  & > div{
+    background: $primary-white;
+  }
+  .dashboard__contents{
+    grid-area: contents;
+  }
+  .dashboard__content{
+    grid-area: content;
+    margin: 0 10px;
+  }
+  .dashboard__options{
+    grid-area: options;
+  }
+}
+
+
+.class{
+  background: $highlight-blue;
+  display: inline-block;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 180px;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  .class__logo{
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.521);
+  }
+  .class__description > div {
+    width: 100px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+  }
+  .class__title{
+    font-weight: bold;
+    font-size: .9rem;
+  }
+
+  .class__teacher_name{
+    font-weight: 500;
+    font-size: .6rem;
+
+  }
+  .class__extra{
+    display: none;
+  }
+  .class__options{
+    // Todo
+  }
+}
+
+
 .timeline-header{
   height: 20px;
   margin-right: 20px;

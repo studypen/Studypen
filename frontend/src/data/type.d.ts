@@ -1,6 +1,6 @@
 
 
-interface UserRegistrationDetail{
+interface UserRegistrationDetail {
     first_name: string,
     last_name: string,
     password: string,
@@ -16,13 +16,33 @@ interface User {
     email: string
 }
 
-type UserState = {
-    user?: User
+type Classes = {
+    id: string,
+    name: string,
+    code: string,
+    teacher: {
+        username: string,
+        email: string,
+        first_name: string,
+        last_name: string
+    },
+    students: string[],
 }
 
-type AuthAction = {
+
+type AuthState = {
+    user?: User
+}
+type ClassState = {
+    classes?: Classes
+}
+
+
+
+type Action = {
     type: string,
     payload?: User
 }
-
-type DispatchType = (args: AuthAction) => UserState
+type AuthAction = Action
+type ClassAction = Action
+type DispatchType = (args: AuthAction) => AuthState

@@ -1,10 +1,9 @@
 import { reducer } from './reducer'
-import { createStore, Store } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { initUser } from './rest'
-
-export type AppStore = Store<UserState, AuthAction>
-
-
-export const store: AppStore = createStore(reducer)
+export const store = configureStore({  reducer })
+export type AppState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+//createStore(reducer)
 
 initUser(store.dispatch)

@@ -51,6 +51,6 @@ export const registration = async (dispatch: Dispatch<AuthAction>,
 }
 
 
-export const getClasses = async (dispatch: Dispatch<void>) =>{
-  //
+export const getClasses = async (dispatch: Dispatch<ClassAction>): void =>{
+  const url = '/classes/list/'
 }

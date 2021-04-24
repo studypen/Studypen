@@ -1,19 +1,32 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import './Dashboard.scss'
 
-
-export const CreateClass: React.FC = () => {
+export const CreateClass: FC = () => {
   return (
-    <>
+    <div className="class">
 
-
-
-
-    </>
+      <div className="class__logo"></div>
+      <div className="class__description">
+        <div className="class__title">CS401</div>
+        <div className="class__teacher_name">Hillal Roy</div>
+        <div className="class__extra">provide letter</div>
+      </div>
+      <div className="class__options">&gt;</div>
+    </div>
   )
 }
+export const Dashboard: FC = () => {
+  return <div className="dashboard">
+    <div className="dashboard__contents"></div>
+    <div className="dashboard__content">
 
-export const Dashboard: React.FC = () => {
+      <CreateClass></CreateClass>
+    </div>
+    <div className="dashboard__options"></div>
+  </div>
+}
+
+export const TimeLine: FC = () => {
   const [lines, setLines] = useState<string[]>([])
   const timeline = useRef<HTMLDivElement>()
   const [timelineWidth, setTimelineWidth] = useState(0)
