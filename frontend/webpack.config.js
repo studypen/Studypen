@@ -2,6 +2,7 @@
 const path = require("path");
 const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -32,6 +33,11 @@ const common = {
     ],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: path.resolve(__dirname, "build", "index.html"),
+      template: path.resolve(__dirname, "public", "index.html"),
+    }),
     new BundleTracker({
       path: __dirname,
       filename: 'webpack-stats.json'
@@ -69,7 +75,7 @@ const production = merge(common, {
           ],
           cacheDirectory: true,
         }
-      },{
+      }, {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
