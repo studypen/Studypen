@@ -1,6 +1,6 @@
 import json
 
-from backend.user.serializers import UserSerializer, UserUpdateSerializer
+from backend.user.serializers import MyTokenObtainPairSerializer, MyTokenRefreshSerializer, UserSerializer, UserUpdateSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -8,8 +8,15 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .utils import IsNotAuthenticated
+from backend.user.utils import user_data
+from rest_framework_simplejwt.views import TokenViewBase
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -30,12 +37,26 @@ class RegisterView(generics.CreateAPIView):
         password = request.data['password']
         user = authenticate(username=username, password=password)
 
-        if user is not None:
-            login(request, user)
+        if user is None:
+            return Response(serializer.data, headers=self.get_success_headers(serializer.data))
 
-        return Response(serializer.data,
+        refresh = RefreshToken.for_user(user)
+        res = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "user": user_data(user)
+        }
+        return Response(res,
                         status=status.HTTP_201_CREATED,
                         headers=headers)
+
+
+class MyTokenRefreshView(TokenViewBase):
+    """
+    Takes a refresh type JSON web token and returns an access type JSON web
+    token if the refresh token is valid.
+    """
+    serializer_class = MyTokenRefreshSerializer
 
 
 class UpdateView(generics.UpdateAPIView):
@@ -52,18 +73,14 @@ class UpdateView(generics.UpdateAPIView):
             instance=request.user, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
         return Response({'status': 'success'})
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def uesr_view(request):
-    return Response({
-        "first_name": request.user.first_name,
-        "last_name": request.user.last_name,
-        "username": request.user.username,
-        "email": request.user.email,
-    })
+    return Response(user_data(request.user))
 
 
 @api_view(['GET'])

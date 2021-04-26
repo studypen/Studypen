@@ -14,11 +14,24 @@ SECRET_KEY = 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'www.studypen.in',
+    # 'www.studypen.in',
+    # '*',
+    # "localhost:9000",
 ]
-
-if DEBUG:  # debug only
-    ALLOWED_HOSTS += ['*']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:9000",
+    # "http://127.0.0.1:9000"
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+# if DEBUG:  # debug only
+#     ALLOWED_HOSTS += ['*', 'localhost:9000']
 
 
 # Application definition
@@ -31,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'corsheaders',
+    'corsheaders',
+    # 'jwtauth',
     'webpack_loader',
     'rest_framework',
     'rest_framework.authtoken',
@@ -42,38 +56,54 @@ INSTALLED_APPS = [
     'backend.user',
     'backend.classes'
 ]
+# CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    # 'accept-encoding',
+    # 'authorization',
+    'content-type',
+    # 'dnt',
+    'origin',
+    'user-agent',
+    '*'  ## TODO
+    # 'x-csrftoken',
+    # 'x-requested-with',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
-    ]
+    ],
+    'EXCEPTION_HANDLER': 'backend.rest_error_handler.custom_exception_handler'
 }
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': '/',  # must end with slash
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': [],
-        'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
-    }
-}
+# WEBPACK_LOADER = {
+#     'DEFAULT': {
+#         'CACHE': not DEBUG,
+#         'BUNDLE_DIR_NAME': '/',  # must end with slash
+#         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+#         'POLL_INTERVAL': 0.1,
+#         'TIMEOUT': None,
+#         'IGNORE': [],
+#         'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
+#     }
+# }
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -153,11 +183,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    # <- this is webpack's output dir
-    os.path.join(BASE_DIR, 'frontend/public'),
-    os.path.join(BASE_DIR, 'frontend/build'),
-)
+
 
 # Auth no using right now
 # ACCOUNT_AUTHENTICATION_METHOD = "email"

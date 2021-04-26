@@ -2,7 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-
 # from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # JWT FOR mobail app
@@ -12,6 +11,28 @@ from django.contrib.auth.password_validation import validate_password
 #         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 #         token['username'] = user.username
 #         return token
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from backend.user.utils import user_data
+from rest_framework_simplejwt.tokens import RefreshToken, Token
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
+
+        # Add extra responses here
+
+        data['user'] = user_data(self.user)
+        return data
+
+
+class MyTokenRefreshSerializer(TokenRefreshSerializer):
+    pass
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -50,7 +71,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.set_password(validated_data['password'])
         user.save()
-
         return user
 
 
