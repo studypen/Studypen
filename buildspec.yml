@@ -1,17 +1,33 @@
+version: 0.2
+
+env:
+  variables:
+    DB_ROOT_PASSWORD: "password"
+    DB_HOST: "localhost"
+    DB_PASSWORD: "password"
+    DB_SOCKET: "/var/run/mysqld/mysqld.sock"
+    KEYID: "5072E1F5"
+
 phases:
-  install:
-    runtime-versions:
-      nodejs: 14
   pre_build:
     commands:
-      - echo pre_build frontend
-      - cd $CODEBUILD_SRC_DIR/frontend
-      - npm install
+      - echo "Before running tests"
+      - sudo ls /root
+      - pip install -r requirements.txt
   build:
     commands:
-      - echo Building the frontend code...
-      - cd $CODEBUILD_SRC_DIR/frontend
-      - npm run build
-    finally:
-      - rm -rf node_modules
-
+      - echo "Running all unit tests"
+      - python manage.py test
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - '**/*'
+cache:
+  paths:
+    - '/root/.cache/pip/**/*'
+    - '/var/cache/apt/archives/**/*'
+    - '/var/lib/apt/lists/**/*'
+    - '/etc/apt/sources.list.d/mysql.list'
+    - '/etc/apt/sources.list'
