@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'backend.classes'
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
-
+SITE_ID=1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
