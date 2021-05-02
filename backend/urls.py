@@ -3,10 +3,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('cors/', views.csrf),
     path('', views.index),
     path('admin/', admin.site.urls),
     path('account/', include('backend.user.urls')),
     path('classes/', include('backend.classes.urls'))
-    # re_path('^(?!backend)', views.index)
 ]
