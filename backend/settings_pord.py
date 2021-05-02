@@ -8,18 +8,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
+SECRET_KEY = os.environ['DJANGO_SECRET']
+# 'zt-wymci1#aobqr-$g#8cm5+-06338$8f74l%i*p(chg$h%sse'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    # 'www.studypen.in',
+    '.studypen.in',
     # '*',
     # "localhost:9000",
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:9000",
+    'https://www.studypen.in',
+    # "http://localhost:9000",
     # "http://127.0.0.1:9000"
 ]
 CORS_ALLOW_METHODS = [
@@ -57,7 +59,7 @@ INSTALLED_APPS = [
     'backend.classes'
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
-SITE_ID=1
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,7 +79,7 @@ CORS_ALLOW_HEADERS = [
     # 'dnt',
     'origin',
     'user-agent',
-    '*'  ## TODO
+    '*'  # TODO
     # 'x-csrftoken',
     # 'x-requested-with',
 ]
@@ -133,13 +135,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'studenthut',
-        'PASSWORD': 'iwillnotshare',
-
-        'USER': 'studenthut',  # db name
-
-        'HOST': 'localhost',  # host
-        'PORT': 5432,  # port
+        'NAME': os.environ['RDS_DB_NAME'],
+        'USER': os.environ['RDS_USERNAME'],
+        'PASSWORD': os.environ['RDS_PASSWORD'],
+        'HOST': os.environ['RDS_HOSTNAME'],
+        'PORT': os.environ['RDS_PORT']
     }
 }
 
