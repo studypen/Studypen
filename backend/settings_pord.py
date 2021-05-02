@@ -16,6 +16,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '.studypen.in',
+    'studypen-env.eba-juigq53v.ap-south-1.elasticbeanstalk.com',
     # '*',
     # "localhost:9000",
 ]
