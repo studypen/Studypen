@@ -1,9 +1,0 @@
-.vscode
-
-*/node_modules/*
-
-build
-db.sqlite3
-yarn*.log
-yarn.lock
-.git
