@@ -12,12 +12,12 @@ def uuid64bit():
 
 class Classes(models.Model):
     name = models.CharField(max_length=50)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10, blank=True)
     teacher = models.ForeignKey(
         User, related_name='classes_teacher', on_delete=models.CASCADE)
     students = models.ManyToManyField(User, related_name='class_students')
     id = models.CharField(max_length=8,
-                            unique=True, primary_key=True, default=uuid64bit)
+                            unique=True, primary_key=True, default=uuid64bit, editable=False)
 
     def __str__(self):
         return f'{self.name} ({self.code})'
