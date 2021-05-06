@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     # create class
-    path('create/', views.create_class),
-    path('list/', views.class_list),
+    path('', views.ClassesAPIView.as_view()),
+    path('shedule/', views.SheduleTimeAPIView.as_view())
     # path('create/', views.create_class),
 
     # create time table

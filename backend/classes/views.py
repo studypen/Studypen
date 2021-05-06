@@ -1,52 +1,45 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .serializers import ClassesSerializers
 from .models import Classes
-from django.db.models import Q
-# Create your views here.
+from rest_framework import generics, status
+from backend.classes.models import SheduleTime
+from backend.classes.serializers import ClassesSheduleTimeSerializers
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import HttpRequest, HttpResponse
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_class(request):
-    # it might work
-    request.data['teacher'] = request.user
-    serializer = ClassesSerializers(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class ClassesAPIView(generics.ListCreateAPIView):
+    queryset = Classes.objects.all()
+    serializer_class = ClassesSerializers
+    permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(teacher=self.request.user)
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def update_class(request):
-    to_update = Classes.objects.get(
-        pk=request.data.pk, teacher=request.user)
-    serializer = ClassesSerializers(instance=to_update, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class SheduleTimeAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
 
+    def get(self, request: HttpRequest) -> HttpResponse:
+        if 'class' not in request.query_params:
+            return Response({"detail": "class id not provided"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def class_list(request):
-    print(request)
-    classes = Classes.objects.filter(Q(students=request.user) | Q(
-        teacher=request.user)).order_by().distinct()
+        class_id = request.query_params['class']
+        # TODO: check if the student or teacher acsses the classShedule
+        try:
+            classes = Classes.objects.get(id=class_id)
+        except Classes.DoesNotExist:
+            return Response({"detail": "Class does not exist"},
+                            status=status.HTTP_404_NOT_FOUND)
+        sheduleTime = SheduleTime.objects.filter(classes=classes)
+        serializer = ClassesSheduleTimeSerializers(sheduleTime, many=True)
+        return Response(serializer.data)
 
-    serializer = ClassesSerializers(instance=classes, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
-def delete_class(request):
-    try:
-        delete_class = Classes.objects.get(
-            pk=request.data.pk, teacher=request.user)
-        delete_class.delete()
-        return Response({'status': "Deleting Sucsess"})
-    except Classes.DoesNotExist:
-        return Response(status=404)
+    def post(self, request, format=None):
+        serializer = ClassesSheduleTimeSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
