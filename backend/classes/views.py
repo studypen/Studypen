@@ -7,12 +7,20 @@ from backend.classes.serializers import ClassesSheduleTimeSerializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpRequest, HttpResponse
+from django.db.models import Q
 
 
 class ClassesAPIView(generics.ListCreateAPIView):
     queryset = Classes.objects.all()
     serializer_class = ClassesSerializers
     permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        # TODO: filter is teacher or student of class
+        user = self.request.user
+        queryset = Classes.objects.filter(Q(students=user) | Q(
+            teacher=user)).order_by().distinct()
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
