@@ -17,10 +17,21 @@ class Classes(models.Model):
         User, related_name='classes_teacher', on_delete=models.CASCADE)
     students = models.ManyToManyField(User, related_name='class_students')
     id = models.CharField(max_length=8,
-                            unique=True, primary_key=True, default=uuid64bit, editable=False)
+                          unique=True, primary_key=True,
+                          default=uuid64bit, editable=False)
 
     def __str__(self):
         return f'{self.name} ({self.code})'
+
+
+class Invites(models.Model):
+    classes = models.OneToOneField(Classes, on_delete=models.CASCADE)
+    id = models.CharField(max_length=8,
+                          unique=True, primary_key=True,
+                          default=uuid64bit, editable=False)
+
+    def __str__(self):
+        return f"{self.classes.name} {self.id}"
 
 
 class SheduleTime(models.Model):

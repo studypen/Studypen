@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
     path('account/', include('backend.user.urls')),
-    path('classes/', include('backend.classes.urls'))
+    path('classes/', include('backend.classes.urls')),
+    path('message/', include('backend.messages.urls')),
 ]

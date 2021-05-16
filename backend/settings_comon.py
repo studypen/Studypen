@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'backend.user',
+    'backend.messages',
     'backend.classes'
 ]
 

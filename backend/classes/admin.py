@@ -2,6 +2,11 @@ from django.contrib import admin
 from . import models
 
 
+@admin.register(models.Invites)
+class InvitesAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(models.Classes)
 class ClassAdmin(admin.ModelAdmin):
     pass
