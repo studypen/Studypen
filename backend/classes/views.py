@@ -84,6 +84,17 @@ class SheduleTimeAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        # if 'class' not in request.query_params:
+        #     return Response({"detail": "class id not provided"},
+        #                     status=status.HTTP_400_BAD_REQUEST)
+
+        # class_id = request.query_params['class']
+        # # TODO: check if the student or teacher acsses the classShedule
+        # try:
+        #     classes = Classes.objects.get(id=class_id)
+        # except Classes.DoesNotExist:
+        #     return Response({"detail": "Class does not exist"},
+        #                     status=status.HTTP_404_NOT_FOUND)
         serializer = ClassesSheduleTimeSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()

@@ -17,8 +17,8 @@ class ClassMessageAPIView(generics.ListCreateAPIView):
         if 'c' not in self.request.query_params:
             raise "class id is requrie"
         clsId = self.request.query_params['c']
-        cls = Classes.objects.get(Q(id=clsId) and (Q(students=user) or Q(
-            teacher=user)))
+        cls = Classes.objects.filter(Q(students=user) or Q(
+            teacher=user)).get(id=clsId)
 
         queryset = ClassMessage.objects.filter(
             classes=cls).order_by().distinct()

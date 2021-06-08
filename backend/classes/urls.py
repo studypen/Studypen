@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     # create class
     path('', views.ClassesAPIView.as_view()),
-    path('shedule/', views.SheduleTimeAPIView.as_view()),
+    path('schedule/', views.SheduleTimeAPIView.as_view()),
     path('invite/', views.inviteLinks),
     path('join/', views.join),
     # path('create/', views.create_class),
