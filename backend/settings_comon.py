@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import datetime
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 CORS_ALLOW_METHODS = [
@@ -10,7 +10,16 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
+JWT_AUTH = {
+    # how long the original token is valid for
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=20),
+    # allow refreshing of tokens
+    'JWT_ALLOW_REFRESH': True,
 
+    # this is the maximum time AFTER the token was issued that
+    # it can be refreshed.  exprired tokens can't be refreshed.
+}
 INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.admin',
